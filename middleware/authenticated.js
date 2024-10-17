@@ -1,15 +1,17 @@
+require('dotenv').config();
+const jwt = require("jsonwebtoken");
+
 const authenticated = (req, res, next) => {
-    console.log('here');
     const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];  // Bearer <token>
+    const token = authHeader && authHeader.split(' ')[1];
 
     if (token == null) {
-        return res.sendStatus(401);  // No token present
+        return res.sendStatus(401);
     }
 
-    jwt.verify(token, SECRET_KEY, (err, user) => {
+    jwt.verify(token, process.env.SECRET, (err, user) => {
         if (err) {
-            return res.sendStatus(403);  // Invalid token
+            return res.sendStatus(403);
         }
 
         req.user = user;

@@ -2,23 +2,22 @@ var createError = require('http-errors');
 var express = require('express');
 const mongoose = require('mongoose');
 var path = require('path');
-const jwt = require('jsonwebtoken');
 
 require('dotenv').config();
 
 const mongoString = process.env.DATABASE_URL
 
 var portfolioRouter = require('./routes/portfolio');
+var authRouter = require('./routes/auth');
 
 var app = express();
-
-const secret = process.env.SECRET;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/portfolio', portfolioRouter);
+app.use('/login', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -50,7 +49,5 @@ database.on('error', (error) => {
 database.once('connected', () => {
   console.log('Database Connected');
 })
-
-//N83asYeMDKsq7yEA
 
 module.exports = app;
