@@ -50,7 +50,7 @@ Coming soon...
 The API uses JWT for authentication. To access protected routes, you need to:
 1. Login to the system (admin only) to get a token: 
 ```bash 
-POST /login
+POST /api/login
 ```
 - Body: ```{ "email": "admin@example.com", "password": "adminpassword" }```
 - Response: ```{ "token": "your_jwt_token", "expires": "expire_timestamp" }```
@@ -72,4 +72,3 @@ After setting up your environment and starting the server, the API will be avail
 
 ## License 
 This project is licensed under the MIT License.
-

@@ -9,8 +9,6 @@ router.post('/', async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        const hashedPassword = await hashService.hashPassword(password);
-
         const user = await User.findOne({ email });
 
         if (!user) {

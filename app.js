@@ -16,8 +16,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/portfolio', portfolioRouter);
-app.use('/login', authRouter);
+app.use('/api/portfolio', portfolioRouter);
+app.use('/api/login', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

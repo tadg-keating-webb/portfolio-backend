@@ -33,7 +33,8 @@ router.post('/', authenticated, async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const data = await Portfolio.findById(req.params.id);
-        res.json(data)
+
+        return data ? res.json(data) : res.status(404).json({ message: 'Item not found' });
     }
     catch (error) {
         res.status(500).json({ message: error.message })
