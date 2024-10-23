@@ -1,9 +1,9 @@
-const Portfolio = require("../models/portfolio");
-const asyncHandler = require("express-async-handler");
-const User = require('../models/user');
-const jwt = require("jsonwebtoken");
 require('dotenv').config();
+const asyncHandler = require("express-async-handler");
 const hashService = require('../services/hashService')();
+const jwt = require("jsonwebtoken");
+const Portfolio = require("../models/portfolio");
+const User = require('../models/user');
 
 exports.login = asyncHandler(async (req, res, next) => {
     try {

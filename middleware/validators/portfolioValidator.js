@@ -1,28 +1,33 @@
 const { check, validationResult } = require('express-validator');
 
-const validatePortfolio = (req, res, next) => {
+const titleLength = 5;
+const descriptionLength = 20;
+
+const validatePortfolio = [
     check('title')
-        .isString()
-        .escape();
-
+        .isLength({ min: titleLength })
+        .withMessage('Title must be at least chars long')
+        .escape(),
     check('description')
-        .isString();
-
+        .isLength({ min: descriptionLength })
+        .withMessage('Description must be at least 20 chars long')
+        .escape(),
     check('demoUrl')
         .optional()
-        .escape();
-
+        .isURL()
+        .withMessage('Demo URL must be a valid URL'),
     check('githubUrl')
         .optional()
-        .escape();
+        .isURL()
+        .withMessage('GitHub URL must be a valid URL'),
+    (req, res, next) => {
+        const errors = validationResult(req);
 
-    const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json(errors.array());
+        }
 
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        next();
     }
-
-    next();
-};
-
+];
 module.exports = validatePortfolio;
